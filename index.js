@@ -282,10 +282,10 @@ function parse_the_email(container)
 			//	2.	Save the parsed email for the next promise.
 			//
 			container.date			= data.date;
-			container.from 			= data.from.value[0].address,
-			container.to 			= data.to.value[0].address,
-			container.subject		= data.subject || "No Subject",
-			container.message_id	= data.messageId
+			container.from			= data.from.value[0].address;
+			container.to			= data.to.value[0].address;
+			container.subject		= data.subject || "No Subject";
+			container.message_id	= data.messageId;
 
 			//
 			//	->	Move to the next chain.
