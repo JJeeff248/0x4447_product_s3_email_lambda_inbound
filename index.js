@@ -78,10 +78,6 @@ exports.handler = (event) => {
 
 		}).then(function(container) {
 
-			return copy_email_to_today(container);
-
-		}).then(function(container) {
-
 			return delete_the_email(container);
 
 		}).then(function(container) {
@@ -518,54 +514,6 @@ function copy_email_to_inbox(container)
 	});
 }
 
-//
-//	Similarly to the previous promise, but in this case we COPY the email to
-//	the Today folder to showcase all the latest emails that were received
-//	within 24h.
-//
-//	There is a Lifecycle rule set on the bucket to delete any object inside
-//	the Today folder if it is older then 24h.
-//
-//	This way it is easier to see all the latest emails.
-//
-function copy_email_to_today(container)
-{
-	return new Promise(function(resolve, reject) {
-
-		console.info("copy_email_to_today");
-
-		//
-		//	1.	Set the query.
-		//
-		let params = {
-			Bucket: container.bucket,
-			CopySource: container.bucket + '/' + container.escaped_key,
-			Key: "Today/" + container.path
-		};
-
-		//
-		//	->	Execute the query.
-		//
-		s3.copyObject(params, function(error, data) {
-
-			//
-			//	1.	Check for internal errors.
-			//
-			if(error)
-			{
-				console.error(params);
-				return reject(error);
-			}
-
-			//
-			//	->	Move to the next chain.
-			//
-			return resolve(container);
-
-		});
-
-	});
-}
 
 //
 //	Delete the original message.
