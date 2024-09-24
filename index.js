@@ -418,6 +418,7 @@ function where_to_save(container)
 
 			if(domain == container.to_domain)
 			{
+				console.log("domains",domain, container.to_domain);
 				container.folder = "Inbox";
 			}
 
